@@ -22,7 +22,7 @@ public class SlidesHorz {
     public SlidesHorz(HardwareMap hardwareMap) {
         //left = hardwareMap.get(DcMotorEx.class, "leftHorizontal");
         right = hardwareMap.get(DcMotorEx.class, "rightHorizontal");
-        left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         targetPosition = 0;
         i_left = 0;
