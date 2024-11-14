@@ -36,6 +36,7 @@ public class TeleopMode extends LinearOpMode {
         imu.initialize(parameters);
 
         waitForStart();
+        verticalClaw.out();
         while(opModeIsActive()) {
 
             gamepadX = gamepad1.left_stick_x;
@@ -65,12 +66,9 @@ public class TeleopMode extends LinearOpMode {
                 verticalSlides.setDefaultTarget(0);
                 horizontalClaw.in();
                 verticalClaw.open();
+                verticalClaw.in();
                 isPickup = true;
                 onVertical = true;
-            }
-
-            if (horizontalSlides.ready() && isPickup) {
-                verticalClaw.in();
             }
 
             if (horizontalSlides.set() && isPickup) {
@@ -112,6 +110,14 @@ public class TeleopMode extends LinearOpMode {
                 else {
                     horizontalClaw.open();
                 }
+            }
+
+            if (gamepad1.dpad_left) {
+                verticalClaw.open();
+            }
+
+            if (gamepad1.dpad_right) {
+                verticalClaw.close();
             }
         }
     }

@@ -20,7 +20,7 @@ public class SlidesHorz {
     private static final int[] POSITIONS = {0, 1500};
     private ElapsedTime timer;
     public SlidesHorz(HardwareMap hardwareMap) {
-        left = hardwareMap.get(DcMotorEx.class, "leftHorizontal");
+        //left = hardwareMap.get(DcMotorEx.class, "leftHorizontal");
         right = hardwareMap.get(DcMotorEx.class, "rightHorizontal");
         left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -38,25 +38,27 @@ public class SlidesHorz {
     }
     public void runToTargetPID(long clock_time) {
         //if (mode != 1) return;
-        left_error = targetPosition - left.getCurrentPosition();
+        //left_error = targetPosition - left.getCurrentPosition();
         right_error = -targetPosition - right.getCurrentPosition();
 
-        d_left = (left_error - previous_left_error) / (clock_time * Math.pow(10, -9));
+        //d_left = (left_error - previous_left_error) / (clock_time * Math.pow(10, -9));
         d_right = (right_error - previous_right_error) / (clock_time * Math.pow(10, -9));
-        i_left += left_error * clock_time * Math.pow(10, -9);
+        //i_left += left_error * clock_time * Math.pow(10, -9);
         i_right += right_error * clock_time * Math.pow(10, -9);
-        previous_left_error = left_error;
+        //previous_left_error = left_error;
         previous_right_error = right_error;
 
-        leftVelocity = clamp(-MAX_ROTATION_RATE, Kp * left_error + Kd * d_left + Ki * i_left, MAX_ROTATION_RATE);
+        //leftVelocity = clamp(-MAX_ROTATION_RATE, Kp * left_error + Kd * d_left + Ki * i_left, MAX_ROTATION_RATE);
         rightVelocity = clamp(-MAX_ROTATION_RATE, Kp * right_error + Kd * d_right + Ki * i_right, MAX_ROTATION_RATE);
 
-        left.setVelocity(leftVelocity);
+        //left.setVelocity(leftVelocity);
         right.setVelocity(rightVelocity);
     }
     public boolean ready() {return timer.nanoseconds() > 1*Math.pow(10, 9);}
-    public boolean set() {return timer.nanoseconds() > 2*Math.pow(10, 9);}
-    public boolean go() {return timer.nanoseconds() > 2.5*Math.pow(10, 9);}
+    public boolean set() {
+        return timer.nanoseconds() > 1.5*Math.pow(10, 9);
+    }
+    public boolean go() {return timer.nanoseconds() > 1.8*Math.pow(10, 9);}
     private double clamp(double a, double b, double c) {
         return Math.min(Math.max(a, b), c);
     }

@@ -12,8 +12,8 @@ public class ClawVert {
         right = hardwareMap.get(Servo.class, "rightUp");
         claw = hardwareMap.get(Servo.class, "clawUp");
 
-        left.scaleRange(0.38, 0.6);
-        right.scaleRange(0.45, 0.68);
+        left.scaleRange(0.47, 0.6);
+        right.scaleRange(0.42, 0.56);
         claw.scaleRange(0, 1);
         open = false;
     }
