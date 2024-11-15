@@ -71,11 +71,11 @@ public class TeleopMode extends LinearOpMode {
                 onVertical = true;
             }
 
-            if (horizontalSlides.set() && isPickup) {
+            if (horizontalSlides.ready() && isPickup) {
                 verticalClaw.close();
             }
 
-            if (horizontalSlides.go() && isPickup) {
+            if (horizontalSlides.set() && isPickup) {
                 horizontalClaw.open();
                 horizontalClaw.out();
                 verticalClaw.out();

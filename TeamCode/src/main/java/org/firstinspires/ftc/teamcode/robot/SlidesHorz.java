@@ -54,11 +54,11 @@ public class SlidesHorz {
         //left.setVelocity(leftVelocity);
         right.setVelocity(rightVelocity);
     }
-    public boolean ready() {return timer.nanoseconds() > 1*Math.pow(10, 9);}
+    public boolean ready() {return timer.nanoseconds() > 1.5*Math.pow(10, 9);}
     public boolean set() {
-        return timer.nanoseconds() > 1.5*Math.pow(10, 9);
+        return timer.nanoseconds() > 1.8*Math.pow(10, 9);
     }
-    public boolean go() {return timer.nanoseconds() > 1.8*Math.pow(10, 9);}
+    public boolean go() {return timer.nanoseconds() > 1.9*Math.pow(10, 9);}
     private double clamp(double a, double b, double c) {
         return Math.min(Math.max(a, b), c);
     }
