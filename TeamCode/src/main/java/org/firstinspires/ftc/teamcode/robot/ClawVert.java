@@ -38,5 +38,6 @@ public class ClawVert {
         //claw.setDirection(Servo.Direction.REVERSE);
         claw.setPosition(1);
     }
+
 }
 

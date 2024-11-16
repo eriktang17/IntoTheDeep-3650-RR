@@ -119,6 +119,12 @@ public class TeleopMode extends LinearOpMode {
             if (gamepad1.dpad_right) {
                 verticalClaw.close();
             }
+            if (gamepad1.dpad_up && isPickup) {
+                horizontalClaw.out();
+            }
+            if (gamepad1.dpad_down && isPickup) {
+                horizontalClaw.in();
+            }
         }
     }
 }
