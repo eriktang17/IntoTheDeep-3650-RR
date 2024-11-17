@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.robot.SlidesVert;
 public class TeleopMode extends LinearOpMode {
 
     private long clock_time = 0;
-    private boolean isPickup, onVertical;
+    private boolean isPickup, onVertical, sample;
     private double currentRotation;
     double gamepadX, gamepadY, turn, x, y;
     static public BNO055IMU.Parameters parameters;
@@ -30,6 +30,7 @@ public class TeleopMode extends LinearOpMode {
         ClawHorz horizontalClaw = new ClawHorz(hardwareMap);
         isPickup = false;
         onVertical = true;
+        sample = true;
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
@@ -54,7 +55,7 @@ public class TeleopMode extends LinearOpMode {
 
                 }
                 else {
-                    mecanumDrive.setDrive(x, y, turn, 0.5);
+                    mecanumDrive.setDrive(x, y, turn, 0.4);
                 }
             }
 
@@ -69,8 +70,18 @@ public class TeleopMode extends LinearOpMode {
                 verticalClaw.in();
                 isPickup = true;
                 onVertical = true;
+                sample = true;
             }
-
+            if (gamepad1.dpad_up && !isPickup) {
+                horizontalSlides.setDefaultTarget(0);
+                verticalSlides.setDefaultTarget(0);
+                horizontalClaw.in();
+                verticalClaw.open();
+                verticalClaw.in();
+                isPickup = true;
+                onVertical = true;
+                sample = false;
+            }
             if (horizontalSlides.ready() && isPickup) {
                 verticalClaw.close();
             }
@@ -79,7 +90,11 @@ public class TeleopMode extends LinearOpMode {
                 horizontalClaw.open();
                 horizontalClaw.out();
                 verticalClaw.out();
-                verticalSlides.setDefaultTarget(1);
+                if (sample) {
+                    verticalSlides.setDefaultTarget(1);
+                } else {
+                    verticalSlides.setDefaultTarget(2);
+                }
                 isPickup = false;
             }
 
@@ -112,18 +127,14 @@ public class TeleopMode extends LinearOpMode {
                 }
             }
 
-            if (gamepad1.dpad_left) {
-                verticalClaw.open();
-            }
-
             if (gamepad1.dpad_right) {
-                verticalClaw.close();
-            }
-            if (gamepad1.dpad_up && isPickup) {
                 horizontalClaw.out();
             }
-            if (gamepad1.dpad_down && isPickup) {
+            if (gamepad1.dpad_left) {
                 horizontalClaw.in();
+            }
+            if (gamepad1.dpad_down && onVertical && !isPickup && !sample) {
+                verticalSlides.setDefaultTarget(3);
             }
         }
     }

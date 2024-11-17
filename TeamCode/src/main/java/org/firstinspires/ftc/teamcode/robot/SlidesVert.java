@@ -16,7 +16,7 @@ public class SlidesVert {
     private static double i_left, i_right;
     private static double leftVelocity, rightVelocity;
     private final double MAX_ROTATION_RATE = 2400;
-    private static final int[] POSITIONS = {0, 2900};
+    private static final int[] POSITIONS = {0, 2900, 900, 1300};
     public SlidesVert(HardwareMap hardwareMap) {
         left = hardwareMap.get(DcMotorEx.class, "leftVertical");
         right = hardwareMap.get(DcMotorEx.class, "rightVertical");
